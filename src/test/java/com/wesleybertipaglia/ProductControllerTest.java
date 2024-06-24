@@ -3,8 +3,11 @@ package com.wesleybertipaglia;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -73,5 +76,18 @@ public class ProductControllerTest {
 
         var violations = validator.validate(invalidProductRecordDto);
         assertFalse(violations.isEmpty());
+    }
+
+    @Test
+    void testGetAllProducts() {
+        List<ProductModel> productList = new ArrayList<>();
+        productList.add(productModel);
+        when(productService.getAllProducts(anyString(), any(int.class), any(int.class))).thenReturn(productList);
+
+        ResponseEntity<List<ProductResponseDto>> response = productController.getAllProducts("", 0, 10);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(1, response.getBody().size());
+        assertEquals(productResponseDto.getName(), response.getBody().get(0).getName());
     }
 }
