@@ -1,7 +1,6 @@
 package com.wesleybertipaglia.products.models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.UUID;
 
 import org.springframework.hateoas.RepresentationModel;
@@ -21,7 +20,7 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
-    private BigDecimal price;
+    private double price;
 
     public static long getSerialversionuuid() {
         return serialVersionUUID;
@@ -43,12 +42,11 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
-
 }
