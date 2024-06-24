@@ -101,4 +101,14 @@ public class ProductControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(productResponseDto.getName(), ((ProductResponseDto) response.getBody()).getName());
     }
+
+    @Test
+    void testGetOneProductNotFound() {
+        when(productService.getProductById(any(UUID.class))).thenReturn(Optional.empty());
+
+        ResponseEntity<Object> response = productController.getOneProduct(productModel.getId());
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("Product not found.", response.getBody());
+    }
 }
