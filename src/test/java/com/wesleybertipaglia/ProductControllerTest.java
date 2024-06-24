@@ -116,8 +116,7 @@ public class ProductControllerTest {
     void testUpdateProduct() {
         when(productService.updateProduct(any(UUID.class), any(ProductRecordDto.class))).thenReturn(productModel);
 
-        ResponseEntity<Object> response = productController.updateProductestUpdateProductNotFoundt(productModel.getId(),
-                productRecordDto);
+        ResponseEntity<Object> response = productController.updateProduct(productModel.getId(), productRecordDto);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(productResponseDto.getName(), ((ProductResponseDto) response.getBody()).getName());
