@@ -1,6 +1,7 @@
 package com.wesleybertipaglia;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -64,5 +65,13 @@ public class ProductControllerTest {
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(productResponseDto.getName(), response.getBody().getName());
+    }
+
+    @Test
+    void testSaveProductValidation() {
+        ProductRecordDto invalidProductRecordDto = new ProductRecordDto("", 0);
+
+        var violations = validator.validate(invalidProductRecordDto);
+        assertFalse(violations.isEmpty());
     }
 }
