@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -89,5 +90,15 @@ public class ProductControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(1, response.getBody().size());
         assertEquals(productResponseDto.getName(), response.getBody().get(0).getName());
+    }
+
+    @Test
+    void testGetOneProduct() {
+        when(productService.getProductById(any(UUID.class))).thenReturn(Optional.of(productModel));
+
+        ResponseEntity<Object> response = productController.getOneProduct(productModel.getId());
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(productResponseDto.getName(), ((ProductResponseDto) response.getBody()).getName());
     }
 }
