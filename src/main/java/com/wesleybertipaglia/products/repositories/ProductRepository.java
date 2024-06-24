@@ -9,5 +9,4 @@ import com.wesleybertipaglia.products.models.ProductModel;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductModel, UUID> {
-
 }
