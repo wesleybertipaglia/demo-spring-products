@@ -142,4 +142,14 @@ public class ProductControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Product deleted successfully.", response.getBody());
     }
+
+    @Test
+    void testDeleteProductNotFound() {
+        when(productService.deleteProduct(any(UUID.class))).thenReturn(false);
+
+        ResponseEntity<Object> response = productController.deleteProduct(productModel.getId());
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("Product not found.", response.getBody());
+    }
 }
